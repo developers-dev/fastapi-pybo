@@ -15,8 +15,12 @@ from domain.user.user_crud import pwd_context
 from .user_schema import ChangeEmailRequest  # 정확한 경로에 따라 import 경로를 조정하세요
 from .user_schema import ChangePasswordRequest  # 정확한 경로에 따라 import 경로를 조정하세요
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
-SECRET_KEY = "29ba911058da1ba60c86ce2445effadbd1469abcdfeb30583fd882c16f69d574"
+from starlette.config import Config
+
+
+config = Config('.env')
+ACCESS_TOKEN_EXPIRE_MINUTES = int(config('ACCESS_TOKEN_EXPIRE_MINUTES'))
+SECRET_KEY = config('SECRET_KEY')
 ALGORITHM = "HS256"
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/user/login")
 
